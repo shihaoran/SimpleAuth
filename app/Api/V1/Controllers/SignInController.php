@@ -26,7 +26,11 @@ class SignInController extends Controller
             $token = $JWTAuth->attempt($credentials);
 
             if(!$token) {
-                throw new AccessDeniedHttpException();
+                //throw new AccessDeniedHttpException();
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'AccessDenied',
+                ]);
             }
 
         } catch (JWTException $e) {
