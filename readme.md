@@ -9,6 +9,7 @@
 
 # SimpleAuth
 一个`Vue.js`前端和`laravel`后端利用`REST API`进行交互的简单Demo。
+
 ##部署说明
 前提条件安装`npm` `php` `composer` `MySQL`，配置好环境变量
 
@@ -31,8 +32,11 @@
     $ npm run dev
     $ php artisan serve
 以开发模式运行，即可在浏览器中打开`localhost:8000`，我们的页面已经显示出来了
+
 ##API定义
+
 ###登录 signin
+
     POST  /api/v1/signin   //登录
     
 请求格式(JSON)
@@ -61,7 +65,9 @@
       "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjExMCwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDBcL2FwaVwvdjFcL3NpZ25pbiIsImlhdCI6MTQ5MTIzNDQ1MiwiZXhwIjoxNDkxMjM4MDUyLCJuYmYiOjE0OTEyMzQ0NTIsImp0aSI6IjZiOWNkOTg3NTc3MTA1YzY5N2JmYjcxNjA5NTM4NTBhIn0.pqJzqYV0N1gL48w2lZKOgEfgLbtwCLq8aAdfjYz75X8"
     }
 
+
 ###注册 signup
+
     POST  /api/v1/signup   //注册
     
 请求格式(JSON)
@@ -92,7 +98,9 @@
       "status": "ok",
       "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjExMiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDBcL2FwaVwvdjFcL3NpZ251cCIsImlhdCI6MTQ5MTIzNDYxMiwiZXhwIjoxNDkxMjM4MjEyLCJuYmYiOjE0OTEyMzQ2MTIsImp0aSI6IjhlZGI3NWIyNjBiZmIzYjQyNzgyMzJhYjk3OWU5Nzk4In0.WK2QOcOfdUj7S1uWgUC4kv4-9vK77HuG14Hz7-lki_A"
     }
+    
 ###获取用户信息 getuserinfo
+
     GET  /api/v1/getuserinfo   //获取用户信息
     
 请求格式(JSON)
@@ -112,7 +120,9 @@
       "motto": "dfsdfsf"
     }
 
+
 ##特性
+
 * 利用`JWT-Auth`实现了基于token的`REST API`下的用户验证
 * 利用`Dingo`实现了对`REST API`的支持
 * 利用`localstorage`实现了用户登录界面的保存功能
@@ -120,6 +130,7 @@
 * 利用`laravel`5.4版本新提供的`laravel-mix`工具实现了`webpack`打包
 
 ##参考资料
+
 * [laravel官方文档](https://laravel.com/docs/5.4/)
 * [Vue官方文档](https://vuejs.bootcss.com/v2/guide/)
 * [JWT-Auth文档](https://github.com/tymondesigns/jwt-auth/wiki)
