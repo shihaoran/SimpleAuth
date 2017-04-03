@@ -23,6 +23,15 @@ const app = new Vue({
         userdata:'',
         login:false,
     },
+    created: function () {
+        var _token=localStorage.getItem('token');
+        var callback=()=>{
+            this.login=true;
+            this.token=_token;
+        };
+        if(_token!==null)
+            this.getUserInfo(_token,callback);
+    },
     computed: {
         ViewComponent () {
             const matchingView = routes[this.currentRoute]
@@ -31,25 +40,37 @@ const app = new Vue({
                 : require('./pages/404.vue')
         }
     },
-    watch: {
-        token: function (val, oldVal) {
+    methods: {
+        getUserInfo: function (token,callback){
             axios({
                 method: 'get',
                 url: '/api/v1/getUserInfo',
-                headers: {'Authorization':'Bearer '+val},
+                headers: {'Authorization':'Bearer '+token},
             })
                 .then((response) => {
-                    console.log(response);
                     this.userdata=response.data;
+                    callback();
                 })
                 .catch((response) => {
                     console.log(response);
-                    console.log(response.response.data.errors);
-                    this.errors=response.response.data.errors;
                 });
+        }
+    },
+    watch: {
+        token: function (val, oldVal) {
+            console.log(val);
+            if(val!=='')
+            {
+                this.getUserInfo(val);
+                localStorage.setItem('token', val);
+            }
+            else
+            {
+                localStorage.removeItem('token');
+            }
         },
         login: function (val, oldVal) {
-            if(oldVal===true && val===false)
+            if(val===false)
                 this.token='';
         },
     },

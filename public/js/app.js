@@ -1475,31 +1475,50 @@ var app = new Vue({
         userdata: '',
         login: false
     },
+    created: function created() {
+        var _this = this;
+
+        var _token = localStorage.getItem('token');
+        var callback = function callback() {
+            _this.login = true;
+            _this.token = _token;
+        };
+        if (_token !== null) this.getUserInfo(_token, callback);
+    },
     computed: {
         ViewComponent: function ViewComponent() {
             var matchingView = __WEBPACK_IMPORTED_MODULE_0__routes__["a" /* default */][this.currentRoute];
             return matchingView ? __webpack_require__(65)("./" + matchingView + '.vue') : __webpack_require__(14);
         }
     },
-    watch: {
-        token: function token(val, oldVal) {
-            var _this = this;
+    methods: {
+        getUserInfo: function getUserInfo(token, callback) {
+            var _this2 = this;
 
             axios({
                 method: 'get',
                 url: '/api/v1/getUserInfo',
-                headers: { 'Authorization': 'Bearer ' + val }
+                headers: { 'Authorization': 'Bearer ' + token }
             }).then(function (response) {
-                console.log(response);
-                _this.userdata = response.data;
+                _this2.userdata = response.data;
+                callback();
             }).catch(function (response) {
                 console.log(response);
-                console.log(response.response.data.errors);
-                _this.errors = response.response.data.errors;
             });
+        }
+    },
+    watch: {
+        token: function token(val, oldVal) {
+            console.log(val);
+            if (val !== '') {
+                this.getUserInfo(val);
+                localStorage.setItem('token', val);
+            } else {
+                localStorage.removeItem('token');
+            }
         },
         login: function login(val, oldVal) {
-            if (oldVal === true && val === false) this.token = '';
+            if (val === false) this.token = '';
         }
     },
     render: function render(h) {
@@ -2546,6 +2565,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_VLink_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_VLink_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_VLinkdiv_vue__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_VLinkdiv_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_VLinkdiv_vue__);
+//
+//
 //
 //
 //
@@ -33156,7 +33177,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [(this.$root.login) ? _c('div', {
     staticClass: "container"
-  }, [_c('h2', [_vm._v("You are logged in!")]), _vm._v(" "), _c('p'), _vm._v(" "), _c('h2', [_vm._v("Username")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.name))]), _vm._v(" "), _c('h2', [_vm._v("Email")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.email))]), _vm._v(" "), _c('h2', [_vm._v("Sex")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.sex))]), _vm._v(" "), _c('h2', [_vm._v("Motto")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.motto))]), _vm._v(" "), _c('a', {
+  }, [_c('h2', [_vm._v("You are logged in!")]), _vm._v(" "), _c('p'), _vm._v(" "), _c('p'), _vm._v(" "), _c('p'), _vm._v(" "), _c('h2', [_vm._v("Username")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.name))]), _vm._v(" "), _c('h2', [_vm._v("Email")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.email))]), _vm._v(" "), _c('h2', [_vm._v("Sex")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.sex))]), _vm._v(" "), _c('h2', [_vm._v("Motto")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.motto))]), _vm._v(" "), _c('a', {
     staticClass: "btn btn-primary btn-lg",
     attrs: {
       "role": "button"
