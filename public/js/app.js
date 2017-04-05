@@ -2591,8 +2591,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -2688,10 +2686,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 })
             }).then(function (response) {
                 console.log(response);
-                _this.$root.token = response.data.token;
-                _this.$root.login = true;
-                _this.$root.currentRoute = '/';
-                window.history.pushState(null, __WEBPACK_IMPORTED_MODULE_1__routes__["a" /* default */]['/'], '/');
+                if (response.data.status === "failed") {
+                    _this.errors = {
+                        "email": ["The email is nonexistence or the password is not match."]
+                    };
+                } else //login ok
+                    {
+                        _this.$root.token = response.data.token;
+                        _this.$root.login = true;
+                        _this.$root.currentRoute = '/';
+                        window.history.pushState(null, __WEBPACK_IMPORTED_MODULE_1__routes__["a" /* default */]['/'], '/');
+                    }
             }).catch(function (response) {
                 console.log(response);
                 console.log('error');
@@ -33177,7 +33182,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [(this.$root.login) ? _c('div', {
     staticClass: "container"
-  }, [_c('h2', [_vm._v("You are logged in!")]), _vm._v(" "), _c('p'), _vm._v(" "), _c('p'), _vm._v(" "), _c('p'), _vm._v(" "), _c('h2', [_vm._v("Username")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.name))]), _vm._v(" "), _c('h2', [_vm._v("Email")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.email))]), _vm._v(" "), _c('h2', [_vm._v("Sex")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.sex))]), _vm._v(" "), _c('h2', [_vm._v("Motto")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.motto))]), _vm._v(" "), _c('a', {
+  }, [_c('h2', [_vm._v("You are logged in!")]), _vm._v(" "), _c('p'), _vm._v(" "), _c('h2', [_vm._v("Username")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.name))]), _vm._v(" "), _c('h2', [_vm._v("Email")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.email))]), _vm._v(" "), _c('h2', [_vm._v("Sex")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.sex))]), _vm._v(" "), _c('h2', [_vm._v("Motto")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.$root.userdata.motto))]), _vm._v(" "), _c('a', {
     staticClass: "btn btn-primary btn-lg",
     attrs: {
       "role": "button"

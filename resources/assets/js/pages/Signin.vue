@@ -56,14 +56,25 @@
                 })
                     .then((response)=> {
                         console.log(response);
-                        this.$root.token=response.data.token;
-                        this.$root.login=true;
-                        this.$root.currentRoute = '/';
-                        window.history.pushState(
-                            null,
-                            routes['/'],
-                            '/'
-                        );
+                        if(response.data.status==="failed")
+                        {
+                            this.errors={
+                            "email": [
+                                "The email is nonexistence or the password is not match."
+                            ]
+                            };
+                        }
+                        else //login ok
+                        {
+                            this.$root.token=response.data.token;
+                            this.$root.login=true;
+                            this.$root.currentRoute = '/';
+                            window.history.pushState(
+                                null,
+                                routes['/'],
+                                '/'
+                            );
+                        }
                     })
                     .catch((response)=> {
                         console.log(response);
